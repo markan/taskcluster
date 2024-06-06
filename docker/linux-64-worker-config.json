@@ -5,7 +5,7 @@
   "rootURL": "http://taskcluster",
   "workerId": "linux-64-worker",
   "provisionerId": "docker-compose",
-  "workerType": "generic-worker",
+  "workerType": "linux-64-worker",
   "livelogExecutable": "/usr/local/bin/livelog",
   "taskclusterProxyExecutable": "/usr/local/bin/taskcluster-proxy",
   "publicIP": "127.0.0.1",

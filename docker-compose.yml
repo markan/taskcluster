@@ -220,7 +220,7 @@ services:
     volumes:
       - ./docker/linux-64-worker-config.json:/etc/generic-worker/config.json
       - ./docker/linux-64-worker-runner-config.json:/etc/generic-worker/worker-runner.json
-    entrypoint: standalone
+    command: standalone
     environment:
       TASKCLUSTER_ROOT_URL: http://taskcluster
       TASKCLUSTER_CLIENT_ID: static/generic-worker-compose-client
