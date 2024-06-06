@@ -211,7 +211,35 @@ services:
       tc_admin_init:
         condition: service_completed_successfully
     ports:
-      - '59999:59999'
+      - '59998:59999'
+  linux-64-worker-static: 
+    image: ${IMAGE_GENERIC_WORKER}
+    networks:
+      - local
+    restart: unless-stopped
+    volumes:
+      - ./docker/linux-64-worker-config.json:/etc/generic-worker/config.json
+      - ./docker/linux-64-worker-runner-config.json:/etc/generic-worker/worker-runner.json
+    entrypoint: standalone
+    environment:
+      TASKCLUSTER_ROOT_URL: http://taskcluster
+      TASKCLUSTER_CLIENT_ID: static/generic-worker-compose-client
+      TASKCLUSTER_ACCESS_TOKEN: j2Z6zW2QSLehailBXlosdw9e2Ti8R_Qh2M4buAEQfsMA
+    profiles:
+      - workers
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      auth-web:
+        condition: service_healthy
+      queue-web:
+        condition: service_healthy
+      taskcluster:
+        condition: service_started
+      tc_admin_init:
+        condition: service_completed_successfully
+#    ports:
+#      - '59997:59999'  
   auth-web:
     image: ${IMAGE}
     networks:

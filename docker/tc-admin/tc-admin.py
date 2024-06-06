@@ -80,6 +80,23 @@ async def static_worker(resources):
 
     resources.add(workerPool)
 
+@appconfig.generators.register
+async def static_worker(resources):
+    workerPoolId = "docker-compose/linux-64-worker"
+    resources.manage(f"WorkerPool={workerPoolId}")
+
+    workerPool = WorkerPool(
+        workerPoolId=workerPoolId,
+        providerId="static",
+        config={},
+        description="This pool is managed by tc-admin. See [documentation](/docs/manual/deploying/anonymous-role#anonymous-role)",
+        owner="mark@taskcluster.local",
+        emailOnError=False,
+    )
+
+    resources.add(workerPool)
+
+
 
 def boot():
     main(appconfig)
